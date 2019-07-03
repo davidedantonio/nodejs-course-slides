@@ -1,0 +1,17 @@
+{
+  "name": "part1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  },
+  "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mdx-deck": "^2.4.0"
+  },
+  "dependencies": {
+    "code-surfer": "^0.5.5"
+  }
+}
