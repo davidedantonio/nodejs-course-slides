@@ -15,6 +15,25 @@ const Center = styled.div({
   justifyContent: 'center'
 })
 
+const BaseSlide = styled.div({
+  padding: '2rem'
+})
+
+const GreenSlide = styled.div({
+  background: '#669F64',
+  color: '#333333',
+  h1: {
+    color: '#fff'
+  },
+  h2: { color: '#fff' },
+  h3: {
+    color: '#fff'
+  },
+  h4: { color: '#fff' },
+  h5: { color: '#fff' },
+  h6: { color: '#fff' },
+})
+
 const theme = {
   colors: {
     text: '#fff',
@@ -83,11 +102,11 @@ const theme = {
   },
   Slide: {
     '& > div': {
-      minWidth: '95vw',
-      minHeight: '95vh',
-      margin: 'auto 5vw',
+      width: '100vw',
+      height: '100vh',
+      margin: 'auto 5vw'
     }
   }
 }
 
-export { theme, Big, Center }
+export { theme, Big, Center, BaseSlide, GreenSlide }

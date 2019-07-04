@@ -1,7 +1,14 @@
 export { theme } from './config'
 import { CodeSurferLayout, Code } from 'code-surfer'
 import { Appear, Image } from 'mdx-deck'
-import { Big, Center } from './config'
+import { Big, Center, BaseSlide, GreenSlide } from './config'
+import {
+  Invert,
+  Split,
+  SplitRight,
+  Horizontal,
+  FullScreenCode,
+} from '@mdx-deck/layouts'
 
 <Image src="images/1_new_york.jpg"
   style={{
@@ -29,6 +36,98 @@ INTRODUCTION
 
 ---
 
-# The second Slide
+<GreenSlide>
+  <SplitRight>
+    <div style={{ padding: '2rem' }}>
+      <h1>Table of contents</h1>
+      <p>
+        Node’s early beginning<br />
+        Node.js philosophy<br />
+        How it works?<br />
+        The event loop<br />
+        The recipe of Node.js<br />
+        Installation<br />
+        Hello, World!<br />
+      </p>
+    </div>
+    <img
+      src="images/2_new_york.jpg"
+      style={{
+        top: 0,
+        width: '100%',
+        height: '100vh',
+        objectPosition: 'top'
+      }}
+    />
+  </SplitRight>
+</GreenSlide>
 
-Questo è solo un test per il contenuto
+---
+<BaseSlide>
+  <h1>Node.js</h1>
+
+  <p>
+    <ul>
+      <li>JavaScript runtime</li>
+      <li>Mono-threaded</li>
+      <li>Asynchronous</li>
+      <li>With a large ecosystem (npm)</li>
+    </ul>
+  </p>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Node.js</h1>
+
+  <p>
+    <ul>
+      <li>JavaScript runtime</li>
+      <li>Mono-threaded</li>
+      <li>Asynchronous</li>
+      <li>With a large ecosystem (npm)</li>
+    </ul>
+  </p>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Module counts</h1>
+  <Center>
+    <img
+      src="images/module_counts.png"
+      style={{
+        top: '10%',
+        width: '50%',
+        height: 'auto',
+        margin: '0 auto'
+      }}
+    />
+  </Center>
+</BaseSlide>
+
+---
+
+<SplitRight>
+  <div style={{ padding: '2rem' }}>
+    <h1>Ryan Dahl</h1>
+    <ul>
+    <li>Created Node.js in 2009</li>
+      <li>Debuted Node.js at JSConf EU 2009</li>
+      <li>Initially Node.js development was sponsored by Joyent</li>
+      <li>In January 2012, Ryan step away from project</li>
+    </ul>
+  </div>
+
+  <img
+    src="images/ryan.jpg"
+    style={{
+      top: 0,
+      width: '100%',
+      height: '100vh',
+      objectPosition: 'top'
+    }}
+  />
+</SplitRight>
