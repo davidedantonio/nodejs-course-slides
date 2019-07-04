@@ -1,7 +1,7 @@
 export { theme } from './config'
 import { CodeSurferLayout, Code } from 'code-surfer'
 import { Appear, Image } from 'mdx-deck'
-import { Big, Center, BaseSlide, GreenSlide } from './config'
+import { Big, Center, BaseSlide, BigTitle, GreenSlide } from './config'
 import {
   Invert,
   Split,
@@ -79,21 +79,6 @@ INTRODUCTION
 ---
 
 <BaseSlide>
-  <h1>Node.js</h1>
-
-  <p>
-    <ul>
-      <li>JavaScript runtime</li>
-      <li>Mono-threaded</li>
-      <li>Asynchronous</li>
-      <li>With a large ecosystem (npm)</li>
-    </ul>
-  </p>
-</BaseSlide>
-
----
-
-<BaseSlide>
   <h1>Module counts</h1>
   <Center>
     <img
@@ -106,6 +91,21 @@ INTRODUCTION
       }}
     />
   </Center>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Node js usage</h1>
+  <p>
+    <ul>
+      <li>Web Servers</li>
+      <li>IoT</li>
+      <li>Front end tooling</li>
+      <li>Scripting</li>
+      <li>...</li>
+    </ul>
+  </p>
 </BaseSlide>
 
 ---
@@ -131,3 +131,199 @@ INTRODUCTION
     }}
   />
 </SplitRight>
+
+---
+
+<SplitRight>
+  <div style={{ padding: '2rem' }}>
+    <h1>Philosophy</h1>
+    <p>
+    "EVERY PLATFORM HAS ITS OWN PHILOSOPHY - A SET
+OF PRINCIPLES AND GUIDELINES THAT ARE
+GENERALLY ACCEPTED BY THE COMMUNITY, AN
+IDEOLOGY OF DOING THINGS THAT INFLUENCES THE
+EVOLUTION OF A PLATFORM, AND HOW APPLICATIONS
+ARE DEVELOPED AND DESIGNED"
+    </p>
+  </div>
+
+  <img
+    src="images/node_way.jpg"
+    style={{
+      top: 0,
+      width: '100%',
+      height: '100vh'
+    }}
+  />
+</SplitRight>
+
+---
+
+<BaseSlide>
+  <h1>Small Modules</h1>
+  <Big>
+  <p>
+    Node.js uses the concept of a module as a fundamental means to structure the code of a program
+    <ul>
+      <li>"Small is Beautiful"</li>
+      <li>"Make each program do one think well"</li>
+    </ul>
+  </p>
+  </Big>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Small Modules</h1>
+  <Big>
+  <p>
+    Besides the clear advantage in terms of reusability, a small module is also considered to be the following
+    <ul>
+      <li>Easier to understand and use</li>
+      <li>Simpler to test and maintain</li>
+    </ul>
+  </p>
+  </Big>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>SMALL SURFACE AREA</h1>
+  <Big>
+  <p>
+    In addition to being small in size and scope, Node.js modules usually also have the characteristic of exposing a minimal set of functionalities
+    <ul>
+      <li>Expose only one piece of functionality</li>
+      <li>Created to be used rather than extended</li>
+    </ul>
+  </p>
+  </Big>
+</BaseSlide>
+
+---
+
+<SplitRight>
+  <div style={{ padding: '2rem' }}>
+    <h1>From small modules to DRY principle</h1>
+    <p>
+    HAVING SMALLER AND MORE FOCUSED
+MODULES EMPOWERS EVERYONE TO SHARE
+OR REUSE EVEN THE SMALLEST PIECE OF
+CODE; IT'S THE DON'T REPEAT YOURSELF (DRY)
+PRINCIPLE APPLIED TO A WHOLE NEW LEVEL.
+    </p>
+  </div>
+
+  <img
+    src="images/dry.jpg"
+    style={{
+      top: 0,
+      width: '100%',
+      height: '100vh'
+    }}
+  />
+</SplitRight>
+
+---
+
+<SplitRight>
+  <div style={{ padding: '2rem' }}>
+    <h1>KISS</h1>
+    <p>
+    KEEP IT SIMPLE, STUPID
+    </p>
+  </div>
+
+  <img
+    src="images/kiss.jpg"
+    style={{
+      top: 0,
+      width: '100%',
+      height: '100vh'
+    }}
+  />
+</SplitRight>
+
+---
+
+<Image src="images/how_works.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  Node.js
+  <BigTitle>HOW IT WORKS?</BigTitle>
+</Image>
+
+---
+
+<BaseSlide>
+  <h1>I/O IS SLOW</h1>
+  <Big>
+    What makes NodeJS distinguished from any other programming platforms is how it handles I/O
+  </Big>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/slow.gif"
+      style={{
+        marginTop: 80
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Blocking I/O</h1>
+  <Big>
+    Multiple threads. One for each connection
+  </Big>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/schema_io_blocking.png"
+      style={{
+        marginTop: 80
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>NON Blocking I/O</h1>
+  <Big>
+    Single Thread and Event Demultiplexing
+  </Big>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/schema_io_nonblocking.png"
+      style={{
+        marginTop: 80
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<Image src="images/familia.jpg"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  Node.js
+  <BigTitle>INSIDE THE EVENT LOOP</BigTitle>
+</Image>

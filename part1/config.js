@@ -19,6 +19,13 @@ const BaseSlide = styled.div({
   padding: '2rem'
 })
 
+const BigTitle = styled.h1({
+  color: '#669F64 !important',
+  fontSize: '10rem !important',
+  borderBottom: 'none',
+  textShadow: '-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5), 0px 0px 8px rgba(0,0,0,0.16)'
+})
+
 const GreenSlide = styled.div({
   background: '#669F64',
   color: '#333333',
@@ -37,10 +44,10 @@ const GreenSlide = styled.div({
 const theme = {
   colors: {
     text: '#fff',
-    background: '#32332B',
+    background: '#333333',
     link: '#07c',
     pre: '#f0f',
-    preBackground: '#333',
+    preBackground: '#333333',
     code: '#f0f',
   },
   googleFont: 'https://fonts.googleapis.com/css?family=Oswald:300,600,900|Raleway:400,700&display=swap',
@@ -92,10 +99,12 @@ const theme = {
   },
   code: { color: '#546e7a' },
   ol: {
-    textAlign: 'left'
+    textAlign: 'left',
+    marginLeft: 20
   },
   ul: {
-    textAlign: 'left'
+    textAlign: 'left',
+    marginLeft: 20
   },
   li: {
     margin: '20px 0'
@@ -109,4 +118,4 @@ const theme = {
   }
 }
 
-export { theme, Big, Center, BaseSlide, GreenSlide }
+export { theme, Big, Center, BaseSlide, GreenSlide, BigTitle }
