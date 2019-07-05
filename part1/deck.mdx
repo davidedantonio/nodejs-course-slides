@@ -65,15 +65,16 @@ INTRODUCTION
 ---
 <BaseSlide>
   <h1>Node.js</h1>
-
-  <p>
-    <ul>
-      <li>JavaScript runtime</li>
-      <li>Mono-threaded</li>
-      <li>Asynchronous</li>
-      <li>With a large ecosystem (npm)</li>
-    </ul>
-  </p>
+  <Big>
+    <p>
+      <ul>
+        <li>JavaScript runtime</li>
+        <li>Mono-threaded</li>
+        <li>Asynchronous</li>
+        <li>With a large ecosystem (npm)</li>
+      </ul>
+    </p>
+  </Big>
 </BaseSlide>
 
 ---
@@ -97,15 +98,17 @@ INTRODUCTION
 
 <BaseSlide>
   <h1>Node js usage</h1>
-  <p>
-    <ul>
-      <li>Web Servers</li>
-      <li>IoT</li>
-      <li>Front end tooling</li>
-      <li>Scripting</li>
-      <li>...</li>
-    </ul>
-  </p>
+  <Big>
+    <p>
+      <ul>
+        <li>Web Servers</li>
+        <li>IoT</li>
+        <li>Front end tooling</li>
+        <li>Scripting</li>
+        <li>...</li>
+      </ul>
+    </p>
+  </Big>
 </BaseSlide>
 
 ---
@@ -326,4 +329,194 @@ PRINCIPLE APPLIED TO A WHOLE NEW LEVEL.
 >
   Node.js
   <BigTitle>INSIDE THE EVENT LOOP</BigTitle>
+</Image>
+
+---
+
+<BaseSlide>
+  <h1>Inside the event loop</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/event_loop1.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Inside the event loop</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/loop_1.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Inside the event loop</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/loop_2.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Inside the event loop</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/loop_3.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Inside the event loop</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/loop_4.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Inside the event loop - Puork Function</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/puork_f.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Inside the event loop - JS Block</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/js_block.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Understanding the phases of an event loop cycle</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/event_loop_schema.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>One Thread</h1>
+  <p>
+    There is only one thread that executes JavaScript code and this is the thread where the event loop is running.
+  </p>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/node_thread.png"
+      style={{
+        marginTop: 20,
+        height: '55vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<Image src="images/recipe.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  Node.js
+  <BigTitle>THE RECIPE</BigTitle>
+</Image>
+
+---
+
+<BaseSlide>
+  <Center>
+    <img src="images/v8_libuv_js.png"
+      style={{
+        marginTop: 20,
+        width: '85%'
+      }}
+    />
+  </Center>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Userland program</h1>
+  <div style={{ textAlign: 'center' }}>
+    <img src="images/userland.png"
+      style={{
+        marginTop: 20,
+        height: '85vh'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<Image src="images/installation.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  Node.js
+  <BigTitle>INSTALLATION</BigTitle>
 </Image>
