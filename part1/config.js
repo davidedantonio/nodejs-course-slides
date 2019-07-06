@@ -7,7 +7,7 @@ const Big = styled.div({
 })
 
 const Center = styled.div({
-  width: '100vw',
+  width: '100%',
   height: '100vh',
   display: 'flex',
   flexDirection: 'column',
@@ -27,27 +27,27 @@ const BigTitle = styled.h1({
 })
 
 const GreenSlide = styled.div({
-  background: '#669F64',
+  background: '#fff',
   color: '#333333',
   h1: {
-    color: '#fff'
+    color: '#669F64'
   },
-  h2: { color: '#fff' },
+  h2: { color: '#669F64' },
   h3: {
-    color: '#fff'
+    color: '#669F64'
   },
-  h4: { color: '#fff' },
-  h5: { color: '#fff' },
-  h6: { color: '#fff' },
+  h4: { color: '#669F64' },
+  h5: { color: '#669F64' },
+  h6: { color: '#669F64' },
 })
 
 const theme = {
   colors: {
-    text: '#fff',
-    background: '#333333',
+    text: '#333333',
+    background: '#fff',
     link: '#07c',
     pre: '#f0f',
-    preBackground: '#333333',
+    preBackground: '#fff',
     code: '#f0f',
   },
   googleFont: 'https://fonts.googleapis.com/css?family=Oswald:300,600,900|Raleway:400,700&display=swap',
