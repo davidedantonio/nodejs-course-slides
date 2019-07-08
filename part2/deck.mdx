@@ -175,6 +175,253 @@ $ npm init
   <h1>Versioning</h1>
   <p>The npm tool supplies other functionality to help with module creation and management workflow.
 For instance, the npm version command can allow us to manage our module's version number according to SemVer semantics. </p>
-  
+
   <a href="" target="_blank">https://semver.org/</a>
 </BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```makefile title="If we were to a fix a bug, we would want to increase the PATCH number"
+$ npm version patch
+```
+
+```makefile title="If we added a new backwards-compatible functionality"
+$ npm version minor
+```
+
+```makefile title="For a major version bump"
+$ npm version major
+```
+
+```makefile title="Install dependencies"
+npm install --save is-number
+npm install --save-dev standard
+```
+
+```makefile title="Our package.json"
+  "dependencies": {
+    "is-number": "^7.0.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+```
+
+```js title="Writing our code"
+const isValidEmail = string => {
+  ...
+}
+
+const isValidNumber = string => {
+  ...
+}
+
+const ucFirstLetter = string => {
+  ...
+}
+
+const endWith = string => {
+  ...
+}
+```
+
+```makefile title="Tap tap test"
+npm install --save-dev tap
+```
+
+```js title="file test.js"
+const test = require('tap').test
+const beeStringUtils = require('./')
+
+test('check if is valid email', t => {
+  t.plan(5)
+  t.equal(beeStringUtils.isValidEmail('davide.dantonio@webeetle.com'), true)
+  t.equal(beeStringUtils.isValidEmail('davide.dantonio@webeetle'), false)
+  t.equal(beeStringUtils.isValidEmail('davide.webeetle'), false)
+  t.equal(beeStringUtils.isValidEmail('davide.webeetle@gmail'), false)
+  t.equal(beeStringUtils.isValidEmail('davide.webeetle@gmail.com'), true)
+})
+```
+
+```makefile title="Add this line in package.json"
+"test": "standard && tap test.js"
+```
+
+```makefile title="Run the test"
+$ npm run test
+```
+
+```markdown title="Write a good README.md"
+# beetle-string-utils
+
+This module contains some utils for string:
+
+- Check if an email is a valid email
+- Check if string end with specified suffix
+- Check if a string is a valid number
+- Transform a given string with UC first letter
+
+## Install
+
+…
+
+## API
+…
+
+## Examples
+…
+
+## LICENSE
+
+Licensed under [MIT](./LICENSE)
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+  <h1>Publishing a module</h1>
+  <p>If we don't have an npm account, we'll need to head over to http://npmjs.org/signup and get an account.</p>
+
+  <div style={{ textAlign: 'center' }}>
+    <img
+      src="images/npm_screen.png"
+      style={{
+        marginTop: 0,
+        width: '60%'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```makefile title="login in npm"
+$ npm login
+```
+
+```makefile title="publish the module"
+$ npm publish --access=public
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+  <h1>Publishing a module</h1>
+
+  <div style={{ textAlign: 'center' }}>
+    <img
+      src="images/npm_page.png"
+      style={{
+        marginTop: 40,
+        width: '80%'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```makefile title="Install the module"
+$ mkdir my-app
+$ cd my-app
+$ npm init
+$ npm install @davide-demos/beetle-string-utils
+```
+
+</CodeSurferLayout>
+
+---
+
+<Image src="images/intro_io.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  Node.js
+  <BigTitle>WORKING WITH I/O</BigTitle>
+</Image>
+
+---
+
+<CodeSurferLayout>
+
+<Code
+  title="An example to start"
+  lang="js"
+  focus="3:6"
+  code={require("!!raw-loader!./codes/exampleToStart.js").default}
+/>
+
+<Code
+  title="Read file - Import the required modules"
+  lang="js"
+  focus="3:4"
+  code={require("!!raw-loader!./codes/readFile.js").default}
+/>
+
+<Code
+  title="Read file - use fs.readFile"
+  lang="js"
+  focus="6:13"
+  code={require("!!raw-loader!./codes/readFile.js").default}
+/>
+
+<Code
+  title="Read file Sync"
+  lang="js"
+  focus="7:14"
+  code={require("!!raw-loader!./codes/readFileSync.js").default}
+/>
+
+<Code
+  title="Read command line arguments"
+  lang="js"
+  focus="1:20"
+  code={require("!!raw-loader!./codes/commandLineArg.js").default}
+/>
+
+<Code
+  title="Create a CSV file"
+  lang="js"
+  focus="1:28"
+  code={require("!!raw-loader!./codes/csv.js").default}
+/>
+
+<Code
+  title="Check file existence"
+  lang="js"
+  focus="5:17"
+  code={require("!!raw-loader!./codes/checkFileExist.js").default}
+/>
+
+<Code
+  title="Create a file"
+  lang="js"
+  focus="1:25"
+  code={require("!!raw-loader!./codes/createFile.js").default}
+/>
+
+<Code
+  title="Watching files"
+  lang="js"
+  focus="1:27"
+  code={require("!!raw-loader!./codes/watchingFiles.js").default}
+/>
+
+</CodeSurferLayout>
