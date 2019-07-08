@@ -69,3 +69,112 @@ As a best practice, generic shareable code should be held in discrete modules, w
     </Big>
 </BaseSlide>
 
+---
+
+<BaseSlide>
+  <h1>Writing a module</h1>
+Contrary to popular belief, npm is not an acronym for Node Package Manager; in fact, it stands for npm is Not An Acronym, which is why it's not called NINAA.
+  <div style={{ textAlign: 'center' }}>
+    <img
+      src="images/npm.png"
+      style={{
+        marginTop: 140,
+        width: '40%',
+        objectPosition: 'center'
+      }}
+    />
+  </div>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Ho to do it</h1>
+  <p>
+    Let’s say that we want to create a module that contain various type of checks. We call it beetle-string-utils. This module must do the following things:
+    <ul>
+      <li>Check if a string is a valid email</li>
+      <li>Check if a string is a valid Number</li>
+      <li>Make first letter of a string uppercase</li>
+      <li>Check if string end with given string</li>
+    </ul>
+  </p>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```makefile title="npm init"
+$ mkdir beetle-string-utils
+$ cd beetle-string-utils
+$ npm init
+```
+
+```makefile title="package.json"
+{
+  "name": "beetle-string-utils",
+  "version": "1.0.0",
+  "description": "A wonderful module for beetle nodejs course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "utils",
+    "string"
+  ],
+  "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
+  "license": "MIT"
+}
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+  <h1>Ho to do it</h1>
+  <p>Sometimes additional metadata can be available after we've created a module. A typical scenario can arise when we initialize our module as a Git repository and add a remote endpoint after creating the module. To demonstrate, we'll create a GitHub repository for our module</p>
+
+  <div style={{ textAlign: 'center' }}>
+    <img
+      src="images/githubmodule.png"
+      style={{
+        marginTop: 0,
+        width: '60%'
+      }}
+    />
+  </div>
+  <p>We'll specify the name as beetle-string-utils and click on Create Repository.</p>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```makefile title="Reinitializing"
+$ git init
+$ git remote add origin https://github.com/<username>/beetle-string-utils.git
+$ git fetch
+$ git pull origin master
+$ git add .
+$ git commit -m 'initial commit’
+$ git push origin master
+```
+
+```makefile title="the magic part"
+$ npm init
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+  <h1>Versioning</h1>
+  <p>The npm tool supplies other functionality to help with module creation and management workflow.
+For instance, the npm version command can allow us to manage our module's version number according to SemVer semantics. </p>
+  
+  <a href="" target="_blank">https://semver.org/</a>
+</BaseSlide>
