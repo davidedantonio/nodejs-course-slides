@@ -30,7 +30,7 @@ import {
   }}
 />
 
-INTRODUCTION
+<BigTitle>INTRODUCTION</BigTitle>
 
 </Image>
 
@@ -1155,3 +1155,140 @@ async function f() {
     <h2>Common errors</h2>
   </Center>
 </BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Nested promises"
+loadSomething().then(something => {
+  loadAnotherThing().then(another => {
+    doSomething(something, another)
+  }).catch(e => console.error(e))
+}).catch(e => console.error(e))
+```
+
+```js title="Nested promises"
+Promise.all([
+     loadSomething(),
+     loadAnotherThing()
+  ])
+  .then(([something, another]) => {
+    doSomething(something, another)
+  })
+  .catch(e => console.error(e))
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Missing catch"
+const fs = require('fs').promises
+
+fs.stat('non-existing-file.txt')
+  .then(stat => console.log(stat))
+```
+
+```js title="Missing catch"
+const fs = require('fs').promises
+
+fs.stat('non-existing-file.txt')
+  .then(stat => console.log(stat))
+  .catch(err => console.log(err))
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Mixing Promise and async/await"
+const mainMethod = () => {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const data1 = await someMethod()
+      const data2 = await someOtherMethod()
+
+      someCallbackMethod(data1, data2, (err, finalData) => {
+        if (err) {
+          return reject(err)
+        }
+
+        resolve(finalData)
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+```
+
+```js title="Mixing Promise and async/await"
+const somePromiseMethod = (data1, data2) => {
+  return new Promise((resolve, reject) => {
+    someCallbackMethod(data1, data2, (err, finalData) => {
+      if (err) {
+        return reject(err)
+      }
+
+      resolve(finalData)
+    })
+  })
+}
+
+async function mainMethod() {
+  try {
+    const data1 = await someMethod()
+    const data2 = await someOtherMethod()
+    return somePromiseMethod(data1, data2)
+  } catch (e) {
+    console.error(e)
+  }
+}
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="CALLBACK - PROMISE - ASYNC/AWAIT"
+getData(a => {
+  getMoreData(a, b => {
+    getMoreData(b, c => {
+      getMoreData(c, d => {
+        getMoreData(d, e => {
+          console.log(e)
+        })
+      })
+    })
+  })
+})
+```
+
+```js title="CALLBACK - PROMISE - ASYNC/AWAIT"
+getData()
+  .then(a => getMoreData(a))
+  .then(b => getMoreData(b))
+  .then(c => getMoreData(c))
+  .then(d => getMoreData(d))
+  .then(e => console.log(e))
+```
+
+```js title="CALLBACK - PROMISE - ASYNC/AWAIT"
+(async = () => {
+  const a = await getData()
+  const b = await getMoreData(b)
+  const c = await getMoreData(c)
+  const d = await getMoreData(d)
+  const e = await getMoreData(e)
+  console.log(e)
+})
+```
+
+</CodeSurferLayout>

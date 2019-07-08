@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "mdx-deck deck.mdx",
-    "build": "mdx-deck build deck.mdx && cp -R images dist/images"
+    "start": "mdx-deck deck.mdx"
   },
   "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
   "license": "MIT",
