@@ -43,8 +43,8 @@ import {
       <p>
         Write a module<br />
         Working with I/O<br />
+        Working with streams<br />
         Web Protocol<br />
-        Fastify<br />
       </p>
     </div>
     <img
@@ -359,14 +359,39 @@ $ npm install @davide-demos/beetle-string-utils
 
 ---
 
+<BaseSlide>
+  <h1>Interfacing with standard I/O</h1>
+  <p>Standard I/O relates to the predefined input, output, and error data channels that connect a process to a shell terminal, commonly known as STDIN, STDOUT, and STDERR. Of course, these can be redirected and piped to other programs for further processing, storage, and so on. 
+    Node provides access to standard I/O on the global process object. </p><p>
+    In this recipe, we're going to take some input, and use it to form some data which we'll send to STDOUT, while simultaneously logging to STDERR. 
+  </p>
+</BaseSlide>
+
+---
+
 <CodeSurferLayout>
 
-<Code
-  title="An example to start"
-  lang="js"
-  focus="3:6"
-  code={require("!!raw-loader!./codes/exampleToStart.js").default}
-/>
+  <Code
+    title="An example to start"
+    lang="js"
+    focus="3:6"
+    code={require("!!raw-loader!./codes/exampleToStart.js").default}
+  />
+</CodeSurferLayout>
+
+--- 
+
+<BaseSlide>
+  <h1>Interfacing with standard I/O</h1>
+  <p>Standard I/O relates to the predefined input, output, and error data channels that connect a process to a shell terminal, commonly known as STDIN, STDOUT, and STDERR. Of course, these can be redirected and piped to other programs for further processing, storage, and so on. 
+    Node provides access to standard I/O on the global process object. </p><p>
+    In this recipe, we're going to take some input, and use it to form some data which we'll send to STDOUT, while simultaneously logging to STDERR. 
+  </p>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
 
 <Code
   title="Read file - Import the required modules"
@@ -425,3 +450,313 @@ $ npm install @davide-demos/beetle-string-utils
 />
 
 </CodeSurferLayout>
+
+---
+
+<Image src="images/intro_io.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  Node.js
+  <BigTitle>WORKING WITH STREAMS</BigTitle>
+</Image>
+
+---
+
+<GreenSlide>
+  <SplitRight>
+    <div style={{ padding: '2rem' }}>
+      <p>Streams are one of the best features in Node. They have been a big part of the ecosystem since the early days of Node and today thousands of modules exists on npm that help us compose all kinds of great stream-based apps. They allow us to work with large volumes of data in environments with limited resources.</p>
+    </div>
+    <img
+      src="images/contents.png"
+      style={{
+        top: 0,
+        width: '100%',
+        height: '100vh',
+        objectPosition: 'center'
+      }}
+    />
+  </SplitRight>
+</GreenSlide>
+
+---
+
+<BaseSlide>
+  <h1>Processing BIG data</h1>
+  <p>
+    Let's dive right into it by looking at a classic Node problem: counting all Node modules available on npm. The npm registry exposes an HTTP endpoint where we can get the entire contents of the npm registry content as JSON
+  </p>
+
+  <pre>
+    <strong>$ curl https://skimdb.npmjs.com/registry/_changes?include_docs=true</strong>
+  </pre>
+
+  <p>
+    This will print a new line delimited JSON stream of all modules. The JSON stream returned by the registry contains a JSON object for each module stored on npm followed by a new line character.
+  </p>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+<Code
+  lang="js"
+  focus="8:15"
+  code={require("!!raw-loader!./codes/stream-1.js").default}
+/>
+
+<Code
+  lang="js"
+  focus="6:12"
+  code={require("!!raw-loader!./codes/stream-2.js").default}
+/>
+
+</CodeSurferLayout>
+
+--- 
+
+<BaseSlide>
+  <h1>Processing BIG data</h1>
+  <p>
+    <ul>
+      <li>In our case, we use a readable stream (as provided by the fs module) to read our source file a chunk at a time. Since our file is bigger than the maximum size per chunk (16 KB), and many chunck are read.</li>
+      <li>The data event is therefore only emitted once, and then the end event is emitted.</li> 
+      <li>This data processing approach can scale potentially infinitely because the amount of memory used by the process stays constant.</li>
+    </ul>
+  </p>
+</BaseSlide>
+
+--- 
+
+<BaseSlide>
+  <h1>Types of streams</h1>
+  <ul>
+    <li><strong>Readable Stream</strong>: an example of a readable stream could be a stream that reads data from a file stored on disk</li>
+    <li><strong>Writable Stream</strong>: an example of a writable stream could be a stream that writes data to a file stored on disk.</li>
+    <li><strong>Duplex Stream</strong>: an example of a duplex stream could be a TCP network stream that both allows us to read data from the network and write data back at the same time.</li>
+    <li><strong>Transform Stream</strong>: an example of a transform stream could be a GZIP stream that compresses the input data written to it</li>
+  </ul>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Understand Stream events - 1</h1>
+  <ul>
+    <li><strong>data</strong>: Emitted when new data is read from a readable stream. The data is provided as the first argument to the event handler. Beware that unlike other event handlers, attaching a data listener has side effects. When the first data listener is attached, our stream will be unpaused. We should never emit data ourselves. Instead, we should always use the push function. </li>
+    <li><strong>end</strong>: Emitted when a readable stream has no more data available and all the available data has been read. We should never emit end ourselves; instead, we should pass null to push to signify the end of the data. </li>
+    <li><strong>finish</strong>: Emitted when a writable stream has been ended and all pending writes have been completed. Similar to the aforementioned events, we should never emit finish ourselves. Use end() to trigger finish manually and pipe a readable stream to it. </li>
+  </ul>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Understand Stream events - 2</h1>
+  <ul>
+    <li><strong>close</strong>: Loosely defined in the stream docs, close is usually emitted when the stream is fully closed. Contrary to end and finish, a stream is not guaranteed to emit this event. It is fully up to the implementer to do this.</li>
+    <li><strong>error</strong>: Emitted when a stream has experienced an error. This to be followed by a close event although, again, there are no guarantees that this will happen. </li>
+    <li><strong>pause</strong>: Emitted when a readable stream has been paused. Pausing will happen when either backpressure occurs or if the pause method is explicitly called. For most use cases, you can just ignore this event, although it is useful to listen for, for debugging purposes sometimes. See the There's more section of the Decoupling I/O recipe for an example of backpressure and pause usage. </li>
+  </ul>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Understand Stream events - 3</h1>
+  <ul>
+    <li><strong>resume</strong>: Emitted when a readable stream goes from being paused to being resumed again. This will happen when the writable stream you are piping to has been drained or if resume has been explicitly called. See the There's more section of the Decoupling I/O recipe for an example of resume usage. </li>
+  </ul>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>Async iterator and Streams</h1>
+  <p>Node.js 10+ comes with support for async iterators. If you are happy to use an experimental feature, they are a simple, idiomatic way of keeping back pressure while working with asynchronous streams</p>
+
+      const fs = require("fs")
+      const input = fs.createReadStream("in-file.txt", "utf8")
+      let inserts = 0
+
+      for async (const data of input) {
+        await insert(data)
+
+        inserts++
+      }
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+  <Code
+    lang="js"
+    focus="6:12"
+    code={require("!!raw-loader!./codes/async-streams.js").default}
+  />
+</CodeSurferLayout>
+
+--- 
+
+<Image src="images/pedrera.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  Node.js
+  <BigTitle>WEB PROTOCOLS</BigTitle>
+</Image>
+
+---
+
+<GreenSlide>
+  <SplitRight>
+    <div style={{ padding: '2rem' }}>
+      <p>One of the great qualities of Node is the simplicity it provides around low-level system operations. 
+Unlike template-centric languages such as PHP or ASP, we have fine grain controlled over the behavior we want without sacrificing easy content control. 
+With Node we can create the server, customize it, and deliver content all at the code level.</p>
+    </div>
+    <img
+      src="images/contents.png"
+      style={{
+        top: 0,
+        width: '100%',
+        height: '100vh',
+        objectPosition: 'center'
+      }}
+    />
+  </SplitRight>
+</GreenSlide>
+
+---
+
+<BaseSlide>
+  <h1>Create an HTTP Server</h1>
+  <p>
+    HTTP is the most prolific protocol in the application layer of the internet protocol suite. Node comes bundled with the core http module which provides both client and server capabilities.
+  </p>
+  <p>We're going to create an HTTP server from scratch.</p>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+  <Code
+    title="We require http module and define some some constants"
+    lang="js"
+    focus="1:6"
+    code={require("!!raw-loader!./codes/httpServer.js").default}
+  />
+
+  <Code
+    title="Create and http server"
+    lang="js"
+    focus="8:13"
+    code={require("!!raw-loader!./codes/httpServer.js").default}
+  />
+
+  <Code
+    title="Define users function"
+    lang="js"
+    focus="15:17"
+    code={require("!!raw-loader!./codes/httpServer.js").default}
+  />
+
+  <Code
+    title="and the index function"
+    lang="js"
+    focus="19:21"
+    code={require("!!raw-loader!./codes/httpServer.js").default}
+  />
+
+  <Code
+    title="if request method !== GET we return an error"
+    lang="js"
+    focus="23:26"
+    code={require("!!raw-loader!./codes/httpServer.js").default}
+  />
+
+  <Code
+    title="Start the server"
+    lang="js"
+    focus="29:29"
+    code={require("!!raw-loader!./codes/httpServer.js").default}
+  />
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+  <h1>Create an HTTP Server...receiving POST data</h1>
+  <p>If we want to be able to receive POST data, we have to instruct our server on how to accept and handle a POST request.</p>
+  <p>In a language where I/O blocking is the primary runtime behavior, accessing POST body data would be as straightforward as accessing a property.</p>
+  <p>For instance, in PHP we could access our POST values with $_POST['fieldname']; the execution thread would block until an array value was filled.</p>
+  <p>Contrariwise, Node provides a low level interaction with the asynchronous flow of HTTP data allowing us to interface with the incoming message body as a stream, leaving it entirely up to the developer to turn that stream into usable data.</p>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+  <Code
+    title="Require all the necessary"
+    lang="js"
+    focus="1:5"
+    code={require("!!raw-loader!./codes/httpServerPost.js").default}
+  />
+
+  <Code
+    title="The GET method render the form"
+    lang="js"
+    focus="7:12"
+    code={require("!!raw-loader!./codes/httpServerPost.js").default}
+  />
+
+  <Code
+    title="The POST method get the form data"
+    lang="js"
+    focus="14:41"
+    code={require("!!raw-loader!./codes/httpServerPost.js").default}
+  />
+
+  <Code
+    title="and then start the server"
+    lang="js"
+    focus="43:53"
+    code={require("!!raw-loader!./codes/httpServerPost.js").default}
+  />
+
+</CodeSurferLayout>
+
+--- 
+
+<Image src="images/intro.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+
+<BigTitle>Grazie</BigTitle>
+<small>@davidedantonio</small>
+</Image>
