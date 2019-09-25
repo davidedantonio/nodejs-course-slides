@@ -9,11 +9,11 @@
   "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
   "license": "MIT",
   "dependencies": {
-    "@mdx-deck/export": "^2.4.0",
-    "code-surfer": "^2.0.0-alpha.8",
-    "mdx-deck": "^2.4.0",
-    "raw-loader": "^3.0.0",
+    "@mdx-deck/export": "^2.5.1",
+    "code-surfer": "^2.0.0-alpha.10",
+    "mdx-deck": "^2.5.1",
+    "raw-loader": "^3.1.0",
     "request": "^2.88.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.4.0"
   }
 }

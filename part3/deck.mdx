@@ -10,7 +10,8 @@ import {
   FullScreenCode,
 } from '@mdx-deck/layouts'
 
-<Image src="images/intro.png"
+<Image 
+  src="images/fastify.png"
   style={{
     display: 'flex',
     justifyContent: 'center',
@@ -22,16 +23,156 @@ import {
   }}
 >
 
-<img
-  src="images/logo.png"
-  style={{
-    width: '20%',
-    height: 'auto'
-  }}
-/>
-
-<BigTitle>PART 2</BigTitle>
-
 </Image>
 
 ---
+
+<GreenSlide>
+  <SplitRight>
+    <img
+      src="images/matteo.jpg"
+      style={{
+        top: 0,
+        width: '100%',
+        height: '100vh',
+        objectPosition: 'center'
+      }}
+    />
+    <img
+      src="images/thomas.jpg"
+      style={{
+        top: 0,
+        width: '100%',
+        height: '100vh',
+        objectPosition: 'center'
+      }}
+    />
+  </SplitRight>
+</GreenSlide>
+
+---
+
+<BaseSlide>
+  <h1>Core Team</h1>
+  <CenteredImages>
+      <div className="avatar">
+        <img src="https://avatars3.githubusercontent.com/u/52195?s=400&v=4" />
+        <h6>Matteo Collina</h6>
+      </div>
+      <div className="avatar">
+        <img src="https://avatars2.githubusercontent.com/u/4865608?s=400&v=4" />
+        <h6>Thomas Della Vedova</h6>
+      </div>
+      <div className="avatar">
+        <img src="https://avatars2.githubusercontent.com/u/1054125?s=400&v=4" />
+        <h6>Tommaso Allevo</h6>
+      </div>
+      <div className="avatar">
+        <img src="https://avatars2.githubusercontent.com/u/16144158?s=400&v=4" />
+        <h6>Ethan Arrowood</h6>
+      </div>
+      <div className="avatar">
+        <img src="https://avatars3.githubusercontent.com/u/1297759?s=400&v=4" />
+        <h6>Cemre Mengu</h6>
+      </div>
+      <div className="avatar">
+        <img src="https://avatars1.githubusercontent.com/u/1764424?s=400&v=4" />
+        <h6>Dustin Deus</h6>
+      </div>
+      <div className="avatar">
+        <img src="https://avatars1.githubusercontent.com/u/205629?s=400&v=4" />
+        <h6>Luciano Mammino</h6>
+      </div>
+      
+      <div className="avatar">
+        <img src="https://avatars3.githubusercontent.com/u/1303687?s=400&v=4" />
+        <h6>Evan Shortiss</h6>
+      </div>
+      
+      <div className="avatar">
+        <img src="https://avatars2.githubusercontent.com/u/11404065?s=400&v=4" />
+        <h6>Manuel Spigolon</h6>
+      </div>
+      
+      <div className="avatar">
+        <img src="https://avatars2.githubusercontent.com/u/321201?s=400&v=4" />
+        <h6>James Sumners</h6>
+      </div>
+      
+      <div className="avatar">
+        <img src="https://avatars1.githubusercontent.com/u/5128013?s=400&v=4" />
+        <h6>Nathan Woltman</h6>
+      </div>
+  </CenteredImages>
+</BaseSlide>
+
+--- 
+
+<BaseSlide>
+  <CenteredBig>
+    <h1>2.000+</h1>
+    COMMITS
+  </CenteredBig>
+</BaseSlide>
+
+--- 
+
+<BaseSlide>
+  <CenteredBig>
+    <h1>12.000+</h1>
+    STARS
+  </CenteredBig>
+</BaseSlide>
+
+--- 
+
+<BaseSlide>
+  <CenteredBig>
+    <h1>125+</h1>
+    RELEASES
+  </CenteredBig>
+</BaseSlide>
+
+--- 
+
+<BaseSlide>
+  <CenteredBig>
+    <h1>184+</h1>
+    CONTRIBUTORS
+  </CenteredBig>
+</BaseSlide>
+
+--- 
+
+<BaseSlide>
+  <CenteredBig>
+    <h1>113+</h1>
+    PLUGINS
+  </CenteredBig>
+</BaseSlide>
+
+--- 
+
+<BaseSlide>
+  <Center>
+    <img src="images/fastify_bench.png" />
+  </Center>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <Center>
+    <code><Big>fast-json-stringify</Big></code>
+  </Center>
+</BaseSlide>
+
+--- 
+
+<CodeSurferLayout>
+  <Code
+    lang="js"
+    focus="6:12"
+    code={require("!!raw-loader!./codes/mammt.js").default}
+  />
+</CodeSurferLayout>
