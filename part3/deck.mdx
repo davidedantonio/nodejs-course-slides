@@ -11,9 +11,9 @@ import {
   FullScreenCode,
 } from '@mdx-deck/layouts';
 import { Appear, Image } from 'mdx-deck';
-import { CenteredImages, BaseSlide, BigFont } from './config'
+import { CenteredImages, BaseSlide, BigFont, ReadSlide } from './config'
 
-<Image 
+<Image
   src="images/fastify.png"
   style={{
     display: 'flex',
@@ -66,7 +66,7 @@ Software Architect @elastic
 
 </SplitRight>
 
---- 
+---
 
 <BaseSlide>
   <h1>Core Team</h1>
@@ -99,22 +99,18 @@ Software Architect @elastic
       <img src="https://avatars1.githubusercontent.com/u/205629?s=400&v=4" />
       <h6>Luciano Mammino</h6>
     </div>
-    
     <div className="avatar">
       <img src="https://avatars3.githubusercontent.com/u/1303687?s=400&v=4" />
       <h6>Evan Shortiss</h6>
     </div>
-    
     <div className="avatar">
       <img src="https://avatars2.githubusercontent.com/u/11404065?s=400&v=4" />
       <h6>Manuel Spigolon</h6>
     </div>
-    
     <div className="avatar">
       <img src="https://avatars2.githubusercontent.com/u/321201?s=400&v=4" />
       <h6>James Sumners</h6>
     </div>
-    
     <div className="avatar">
       <img src="https://avatars1.githubusercontent.com/u/5128013?s=400&v=4" />
       <h6>Nathan Woltman</h6>
@@ -242,7 +238,7 @@ const server = http.createServer((req, res) => {
 fastify.register(
   require('my-plugin'),
   { options }
-) 
+)
 ```
 
 </CodeSurferLayout>
@@ -276,7 +272,7 @@ module.exports = function (fastify, options, next) {}
 function myPlugin (fastify, opts, next) {
   // add another plugin
   fastify.register (...)
-  
+
   // add an Hook
   fastify.addHook(...)
 
@@ -285,7 +281,7 @@ function myPlugin (fastify, opts, next) {
 
   // add routes
   fastify.route(...)
-  
+
   next()
 }
 
@@ -329,3 +325,248 @@ module.exports = fp(myPlugin)
 <BigFont>
   <img src="./images/plugin_dag_2.png" />
 </BigFont>
+
+---
+
+<BigFont>
+  <img src="./images/plugin_dag_3.png" />
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Encapsulation is the keystone of fastify" subtitle="For example, allows us to have different logs levels for each plugin"
+const fastify = require('fastify')()
+
+fastify.register(require('./api/v1'), {
+  prefix: '/v1',
+  logLevel: 'error'
+})
+
+fastify.register(require('./api/v2'), {
+  prefix: '/v2',
+  logLevel: 'debug'
+})
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+  <img src="./images/pino_logo.png" />
+  <h2>Pino</h2>
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Logging is disabled by default" subtitle="you can enable it by passing {logger: true} or {logger: { level: 'info' }}"
+const fastify = require('fastify')({
+  logger: true
+})
+
+fastify.get('/', options, function (request, reply) {
+  request.log.info('Some info about the current request')
+  reply.send({ hello: 'world' })
+})
+
+```
+
+```js subtitle="If you want to specify a file destination"
+const fastify = require('fastify')({
+  logger: {
+    level: 'info',
+    file: '/path/to/file' // will use pino.destination()
+  }
+})
+
+fastify.get('/', options, function (request, reply) {
+  request.log.info('Some info about the current request')
+  reply.send({ hello: 'world' })
+})
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="You can specify a log level"
+fastify.log.trace('Trace level log')
+fastify.log.debug('Debug level log')
+fastify.log.info('Info level log')
+fastify.log.warn('Warning level log')
+fastify.log.error('Error level log')
+fastify.log.fatal('Fatal level log')
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+  <h1>Hooks</h1>
+</BigFont>
+
+---
+
+<ReadSlide>
+  <h1>Request/Response Hooks</h1>
+  <p>
+    By using the hooks you can interact directly inside the lifecycle of Fastify.<br />
+    There are seven different Hooks that you can use (in order of execution):
+  </p>
+  <p>
+    <ul>
+    <li><strong>onRequest</strong></li>
+    <li><strong>preParsing</strong></li>
+    <li><strong>preValidation</strong></li>
+    <li><strong>preHandler</strong></li>
+    <li><strong>preSerialization</strong></li>
+    <li><strong>onError</strong></li>
+    <li><strong>onSend</strong></li>
+    <li><strong>onResponse</strong></li>
+  </ul>
+  </p>
+</ReadSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js title="onError hook "
+fastify.addHook('onError', (request, reply, error, next) => {
+  // apm stands for Application Performance Monitoring
+  apm.sendError(error)
+  next()
+})
+````
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="preSerialization hook" subtitle="you can change (or replace) the payload before it is serialized"
+fastify.addHook('preSerialization', (request, reply, payload, next) => {
+  var err = null;
+  var newPayload = {wrapped: payload }
+  next(err, newPayload)
+})
+````
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="onSend hook" subtitle="If you are using the onSend hook, you can change the payload"
+fastify.addHook('onSend', (request, reply, payload, next) => {
+  var err = null;
+  var newPayload = payload.replace('some-text', 'some-new-text')
+  next(err, newPayload)
+})
+````
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="preSerialization hook" subtitle="You can change (or replace) the payload before it is serialized"
+fastify.addHook('preSerialization', (request, reply, payload, done) => {
+  var err = null;
+  var newPayload = { wrapped: payload }
+  done(err, newPayload)
+})
+````
+
+</CodeSurferLayout>
+
+---
+
+<ReadSlide>
+  <h1>Application Hooks</h1>
+  <p>
+    You are able to hook into the application-lifecycle as well. It's important to note that these hooks aren't fully encapsulated. The this inside the hooks are encapsulated but the handlers can respond to an event outside the encapsulation boundaries.
+  </p>
+  <p>
+    <ul>
+    <li><strong>onClose</strong></li>
+    <li><strong>onRoute</strong></li>
+  </ul>
+  </p>
+</ReadSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js title="onClose hook" subtitle="Triggered when fastify.close() is invoked to stop the server"
+fastify.addHook('onClose', (instance, done) => {
+  // some code
+  done()
+})
+````
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="onRoute hook" subtitle="Triggered when a new route is registered"
+fastify.addHook('onRoute', (routeOptions) => {
+  // some code
+  routeOptions.method
+  routeOptions.schema
+  routeOptions.url
+  routeOptions.bodyLimit
+  routeOptions.logLevel
+  routeOptions.prefix
+})
+````
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Route level hooks"
+fastify.addHook('preValidation', (request, reply, done) => {
+  // your code
+  done()
+})
+
+fastify.addHook('preHandler', (request, reply, done) => {
+  // your code
+  done()
+})
+
+fastify.route({
+  method: 'GET',
+  url: '/',
+  schema: { ... },
+  preValidation: function (request, reply, done) {
+    // this hook will always be executed after the shared `preValidation` hooks
+    done()
+  },
+  preHandler: function (request, reply, done) {
+    // this hook will always be executed after the shared `preHandler` hooks
+    done()
+  },
+  handler: function (request, reply) {
+    reply.send({ hello: 'world' })
+  }
+})
+```
+
+</CodeSurferLayout>

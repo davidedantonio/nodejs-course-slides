@@ -11,6 +11,11 @@ const BaseSlide = styled.div({
   flexDirection: 'column'
 });
 
+const ReadSlide = styled.div({
+  padding: '2rem',
+  fontSize: '2.1rem'
+});
+
 const BigFont = styled.div({
   display: 'flex',
   justifyContent: 'center',
@@ -23,6 +28,13 @@ const BigFont = styled.div({
     display: 'block',
     marginBottom: 0,
     lineHeight: '17rem'
+  },
+  '> h2': {
+    fontSize: '10rem',
+    borderBottom: 'none',
+    display: 'block',
+    marginBottom: 0,
+    lineHeight: '10rem'
   },
   '> .subtitle': {
     fontSize: '17rem',
@@ -134,4 +146,4 @@ const theme = {
   }
 }
 
-export { theme, CenteredImages, BaseSlide, BigFont }
+export { theme, CenteredImages, BaseSlide, BigFont, ReadSlide }
