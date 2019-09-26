@@ -1,19 +1,18 @@
 {
-  "name": "part1",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "mdx-deck deck.mdx"
+    "start": "mdx-deck deck.mdx",
+    "build": "mdx-deck build deck.mdx",
+    "test": "echo \"there are no tests\""
   },
-  "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
-  "license": "MIT",
+  "devDependencies": {
+    "code-surfer": "2.0.0-alpha.8",
+    "mdx-deck": "2.4.0",
+    "raw-loader": "3.0.0"
+  },
+  "name": "part5",
   "dependencies": {
-    "@mdx-deck/export": "^2.5.1",
-    "code-surfer": "^2.0.0-alpha.10",
-    "mdx-deck": "^2.5.1",
-    "raw-loader": "^3.1.0",
-    "request": "^2.88.0",
     "styled-components": "^4.4.0"
   }
 }

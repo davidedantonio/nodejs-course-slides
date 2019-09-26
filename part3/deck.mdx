@@ -1,14 +1,17 @@
 export { theme } from './config'
-import { CodeSurferLayout, Code } from 'code-surfer'
-import { Appear, Image } from 'mdx-deck'
-import { Big, Center, BaseSlide, BigTitle, GreenSlide } from './config'
+import {
+  CodeSurferLayout,
+  CodeSurferColumnLayout,
+} from "code-surfer";
 import {
   Invert,
   Split,
   SplitRight,
   Horizontal,
   FullScreenCode,
-} from '@mdx-deck/layouts'
+} from '@mdx-deck/layouts';
+import { Appear, Image } from 'mdx-deck';
+import { CenteredImages, BaseSlide, BigFont } from './config'
 
 <Image 
   src="images/fastify.png"
@@ -27,152 +30,302 @@ import {
 
 ---
 
-<GreenSlide>
-  <SplitRight>
-    <img
-      src="images/matteo.jpg"
-      style={{
-        top: 0,
-        width: '100%',
-        height: '100vh',
-        objectPosition: 'center'
-      }}
-    />
-    <img
-      src="images/thomas.jpg"
-      style={{
-        top: 0,
-        width: '100%',
-        height: '100vh',
-        objectPosition: 'center'
-      }}
-    />
-  </SplitRight>
-</GreenSlide>
+<SplitRight>
+
+<img
+  src="images/matteo.jpg"
+  style={{
+    top: 0,
+    width: '100%',
+    height: '100vh',
+    objectPosition: 'center'
+  }}
+/>
+
+## Matteo Collina
+Technical Director @NearForm
+
+</SplitRight>
 
 ---
+
+<SplitRight>
+
+<img
+  src="images/thomas.jpg"
+  style={{
+    top: 0,
+    width: '100%',
+    height: '100vh',
+    objectPosition: 'center'
+  }}
+/>
+
+## Thomas della Vedova
+Software Architect @elastic
+
+</SplitRight>
+
+--- 
 
 <BaseSlide>
   <h1>Core Team</h1>
   <CenteredImages>
-      <div className="avatar">
-        <img src="https://avatars3.githubusercontent.com/u/52195?s=400&v=4" />
-        <h6>Matteo Collina</h6>
-      </div>
-      <div className="avatar">
-        <img src="https://avatars2.githubusercontent.com/u/4865608?s=400&v=4" />
-        <h6>Thomas Della Vedova</h6>
-      </div>
-      <div className="avatar">
-        <img src="https://avatars2.githubusercontent.com/u/1054125?s=400&v=4" />
-        <h6>Tommaso Allevo</h6>
-      </div>
-      <div className="avatar">
-        <img src="https://avatars2.githubusercontent.com/u/16144158?s=400&v=4" />
-        <h6>Ethan Arrowood</h6>
-      </div>
-      <div className="avatar">
-        <img src="https://avatars3.githubusercontent.com/u/1297759?s=400&v=4" />
-        <h6>Cemre Mengu</h6>
-      </div>
-      <div className="avatar">
-        <img src="https://avatars1.githubusercontent.com/u/1764424?s=400&v=4" />
-        <h6>Dustin Deus</h6>
-      </div>
-      <div className="avatar">
-        <img src="https://avatars1.githubusercontent.com/u/205629?s=400&v=4" />
-        <h6>Luciano Mammino</h6>
-      </div>
-      
-      <div className="avatar">
-        <img src="https://avatars3.githubusercontent.com/u/1303687?s=400&v=4" />
-        <h6>Evan Shortiss</h6>
-      </div>
-      
-      <div className="avatar">
-        <img src="https://avatars2.githubusercontent.com/u/11404065?s=400&v=4" />
-        <h6>Manuel Spigolon</h6>
-      </div>
-      
-      <div className="avatar">
-        <img src="https://avatars2.githubusercontent.com/u/321201?s=400&v=4" />
-        <h6>James Sumners</h6>
-      </div>
-      
-      <div className="avatar">
-        <img src="https://avatars1.githubusercontent.com/u/5128013?s=400&v=4" />
-        <h6>Nathan Woltman</h6>
-      </div>
+    <div className="avatar">
+      <img src="https://avatars3.githubusercontent.com/u/52195?s=400&v=4" />
+      <h6>Matteo Collina</h6>
+    </div>
+    <div className="avatar">
+      <img src="https://avatars2.githubusercontent.com/u/4865608?s=400&v=4" />
+      <h6>Thomas Della Vedova</h6>
+    </div>
+    <div className="avatar">
+      <img src="https://avatars2.githubusercontent.com/u/1054125?s=400&v=4" />
+      <h6>Tommaso Allevo</h6>
+    </div>
+    <div className="avatar">
+      <img src="https://avatars2.githubusercontent.com/u/16144158?s=400&v=4" />
+      <h6>Ethan Arrowood</h6>
+    </div>
+    <div className="avatar">
+      <img src="https://avatars3.githubusercontent.com/u/1297759?s=400&v=4" />
+      <h6>Cemre Mengu</h6>
+    </div>
+    <div className="avatar">
+      <img src="https://avatars1.githubusercontent.com/u/1764424?s=400&v=4" />
+      <h6>Dustin Deus</h6>
+    </div>
+    <div className="avatar">
+      <img src="https://avatars1.githubusercontent.com/u/205629?s=400&v=4" />
+      <h6>Luciano Mammino</h6>
+    </div>
+    
+    <div className="avatar">
+      <img src="https://avatars3.githubusercontent.com/u/1303687?s=400&v=4" />
+      <h6>Evan Shortiss</h6>
+    </div>
+    
+    <div className="avatar">
+      <img src="https://avatars2.githubusercontent.com/u/11404065?s=400&v=4" />
+      <h6>Manuel Spigolon</h6>
+    </div>
+    
+    <div className="avatar">
+      <img src="https://avatars2.githubusercontent.com/u/321201?s=400&v=4" />
+      <h6>James Sumners</h6>
+    </div>
+    
+    <div className="avatar">
+      <img src="https://avatars1.githubusercontent.com/u/5128013?s=400&v=4" />
+      <h6>Nathan Woltman</h6>
+    </div>
   </CenteredImages>
-</BaseSlide>
-
---- 
-
-<BaseSlide>
-  <CenteredBig>
-    <h1>2.000+</h1>
-    COMMITS
-  </CenteredBig>
-</BaseSlide>
-
---- 
-
-<BaseSlide>
-  <CenteredBig>
-    <h1>12.000+</h1>
-    STARS
-  </CenteredBig>
-</BaseSlide>
-
---- 
-
-<BaseSlide>
-  <CenteredBig>
-    <h1>125+</h1>
-    RELEASES
-  </CenteredBig>
-</BaseSlide>
-
---- 
-
-<BaseSlide>
-  <CenteredBig>
-    <h1>184+</h1>
-    CONTRIBUTORS
-  </CenteredBig>
-</BaseSlide>
-
---- 
-
-<BaseSlide>
-  <CenteredBig>
-    <h1>113+</h1>
-    PLUGINS
-  </CenteredBig>
-</BaseSlide>
-
---- 
-
-<BaseSlide>
-  <Center>
-    <img src="images/fastify_bench.png" />
-  </Center>
 </BaseSlide>
 
 ---
 
-<BaseSlide>
-  <Center>
-    <code><Big>fast-json-stringify</Big></code>
-  </Center>
-</BaseSlide>
+<BigFont>
+  <h1>2000+</h1>
+  <span className="subtitle">COMMITS</span>
+</BigFont>
 
---- 
+---
+
+<BigFont>
+  <h1>120+</h1>
+  <span className="subtitle">RELEASES</span>
+</BigFont>
+
+---
+
+<BigFont>
+  <h1>180+</h1>
+  <span className="subtitle">COLLABORATORS</span>
+</BigFont>
+
+---
+
+<BigFont>
+  <h1>110+</h1>
+  <span className="subtitle">PLUGINS</span>
+</BigFont>
+
+---
+
+<BigFont>
+  <h1>Why Fastify?</h1>
+</BigFont>
+
+---
+
+<BigFont>
+  <img src="./images/fastify_bench.png" />
+</BigFont>
+
+---
+
+<BigFont>
+  <code>fast-json-stringify</code>
+</BigFont>
+
+---
+<CodeSurferLayout>
+
+```js subtitle="2x faster than JSON.stringify()"
+const fastJson = require('fast-json-stringify')
+
+const stringify = fastJson({
+  title: 'Example Schema',
+  type: 'object',
+  properties: {
+    firstName: {
+      type: 'string'
+    },
+    lastName: {
+      type: 'string'
+    },
+    age: {
+      description: 'Age in years',
+      type: 'integer'
+    }
+  }
+})
+```
+
+```js subtitle="Its performance advantage shrinks as your payload grows"
+console.log(stringify({
+  firstName: "Davide",
+  lastName: "D'Antonio",
+  age: 35
+}))
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+  <code>find-my-way</code>
+</BigFont>
+
+---
 
 <CodeSurferLayout>
-  <Code
-    lang="js"
-    focus="6:12"
-    code={require("!!raw-loader!./codes/mammt.js").default}
-  />
+
+```js subtitle="A crazy fast HTTP router. Used by Netflix"
+const http = require('http')
+const router = require('find-my-way')()
+
+router.on('GET', '/', (req, res, params) => {
+  res.end('{"message":"hello world"}')
+})
+
+const server = http.createServer((req, res) => {
+  router.lookup(req, res)
+})
+```
+
 </CodeSurferLayout>
+
+---
+
+<BigFont>
+  <span className="subtitle">Extendible via </span>
+  <span className="colored">plugins</span>
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```js
+fastify.register(
+  require('my-plugin'),
+  { options }
+) 
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="Plugins must expose a single function with the following signature"
+module.exports = function (fastify, options, next) {}
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+  <code>module.exports = function (fastify, options, next) {}</code>
+  <ul>
+    <li><strong>fastify</strong>: the encapsulated fastify instance</li>
+    <li><strong>options</strong>: the plugin options</li>
+    <li><strong>next</strong>: is the function that will be called when the plugin has been correctly loaded</li>
+  </ul>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="async await is supported"
+function myPlugin (fastify, opts, next) {
+  // add another plugin
+  fastify.register (...)
+  
+  // add an Hook
+  fastify.addHook(...)
+
+  // decorate fastify instance
+  fastify.decorate(...)
+
+  // add routes
+  fastify.route(...)
+  
+  next()
+}
+
+module.exports = myPlugin
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+  <img src="./images/plugin_dag_1.png" />
+</BigFont>
+
+---
+
+<BigFont>
+  <code>fastify-plugin</code>
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="How to use fastify-plugin to expose plugin to the parent"
+const fp = require('fastify-plugin')
+const myPlugin2 = require('myPlugin2')
+
+function myPlugin (fastify, opts, next) {
+  fastify.decorate('myPlugin2', myPlugin2)
+  next()
+}
+
+module.exports = fp(myPlugin)
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+  <img src="./images/plugin_dag_2.png" />
+</BigFont>
