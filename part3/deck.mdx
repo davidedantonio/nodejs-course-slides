@@ -570,3 +570,82 @@ fastify.route({
 ```
 
 </CodeSurferLayout>
+
+---
+
+<BigFont>
+  <h1>Decorators</h1>
+</BigFont>
+
+---
+
+<BaseSlide>
+  <h1>Decorators</h1>
+  <p>If you need to add functionality to the Fastify instance, the decorate API is what you need.</p>
+  <p>The API allows you to add new properties to the Fastify instance. A value is not restricted to a function and could also be an object or a string, for example.</p>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="Decorators and encapsulation"
+const server = require('fastify')()
+
+server.decorateReply('view', function (template, args) {
+  // Amazing view rendering engine.
+})
+
+server.get('/', (req, reply) => {
+  reply.view('/index.html', { hello: 'world' })
+})
+
+// Somewhere else in our codebase, we define another
+// view decorator. This throws.
+server.decorateReply('view', function (template, args) {
+  // another rendering engine
+})
+
+server.listen(3000)
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="Decorators accept special getter/setter objects"
+fastify.decorate('foo', {
+  getter () {
+    return 'a getter'
+  }
+})
+
+console.log(fastify.foo) // getter
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="Has Decorators"
+// You can check for the presence of a decorator with
+fastify.hasDecorator('utility')
+
+// You can check for the presence of a Request decorator with
+fastify.hasRequestDecorator('utility')
+
+// You can check for the presence of a Reply decorator with
+fastify.hasReplyDecorator('utility')
+```
+
+</CodeSurferLayout>
+
+---
+
+
+
+---
