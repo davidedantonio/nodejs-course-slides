@@ -16,6 +16,14 @@ const ReadSlide = styled.div({
   fontSize: '2.1rem'
 });
 
+const BigTitle = styled.h1({
+  color: '#669F64 !important',
+  fontSize: '10rem !important',
+  borderBottom: 'none',
+  textShadow: '-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5), 0px 0px 8px rgba(0,0,0,0.16)'
+})
+
+
 const BigFont = styled.div({
   display: 'flex',
   justifyContent: 'center',
@@ -146,4 +154,4 @@ const theme = {
   }
 }
 
-export { theme, CenteredImages, BaseSlide, BigFont, ReadSlide }
+export { theme, CenteredImages, BaseSlide, BigFont, ReadSlide, BigTitle }

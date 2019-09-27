@@ -11,7 +11,7 @@ import {
   FullScreenCode,
 } from '@mdx-deck/layouts';
 import { Appear, Image } from 'mdx-deck';
-import { CenteredImages, BaseSlide, BigFont, ReadSlide } from './config'
+import { CenteredImages, BaseSlide, BigFont, ReadSlide, BigTitle } from './config'
 
 <Image
   src="images/fastify.png"
@@ -615,22 +615,6 @@ server.listen(3000)
 
 <CodeSurferLayout>
 
-```js subtitle="Decorators accept special getter/setter objects"
-fastify.decorate('foo', {
-  getter () {
-    return 'a getter'
-  }
-})
-
-console.log(fastify.foo) // getter
-```
-
-</CodeSurferLayout>
-
----
-
-<CodeSurferLayout>
-
 ```js subtitle="Has Decorators"
 // You can check for the presence of a decorator with
 fastify.hasDecorator('utility')
@@ -646,6 +630,119 @@ fastify.hasReplyDecorator('utility')
 
 ---
 
-
+<BigFont>
+  <code>json-schema</code>
+</BigFont>
 
 ---
+
+<BaseSlide>
+  <h1>json-schema</h1>
+  <p>Fastify uses a schema-based approach, and even if it is not mandatory.</p>
+  <p>Internally, Fastify compiles the schema into a highly performant function.</p>
+  <p>The route validation internally relies upon Ajv, which is a high-performance JSON schema validator.</p>
+</BaseSlide>
+
+---
+
+<BaseSlide>
+  <h1>json-schema</h1>
+  <ul>
+  <li><strong>body</strong>: validates the body of the request if it is a POST or a PUT.</li>
+  <li><strong>querystring</strong>: validates the query string. This can be a complete JSON Schema object or a simpler variation in which the type and properties attributes are forgone and the query parameters are listed at the top level.</li>
+  <li><strong>params</strong>: validates the route params.</li>
+  <li><strong>headers</strong>: validates the request headers.</li>
+  </ul>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Object Schema example"
+{
+  type: 'object',
+  properties: {
+    title: {
+      description: 'The ticket Title',
+      summary: 'The ticket Title',
+      type: 'string'
+    },
+    body: {
+      description: 'The ticket Body',
+      summary: 'The ticket Body',
+      type: 'string'
+    }
+  },
+  required: ['title','body']
+}
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+  <h1>json-schema... Why?</h1>
+  <ul>
+  <li><strong>Standard</strong></li>
+  <li><strong>Fast</strong></li>
+  <li><strong>You can use https://www.jsonschema.net to generate all the schemas you want</strong></li>
+  </ul>
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js title="Protect a route with json-schema"
+fastify.post('/ticket', {
+  schema: {
+    body: {
+      type: 'object',
+      properties: {
+        …
+      },
+      required: ['title','body']
+    },
+    response: {
+      '20x': {
+        …
+      }
+    }
+  }
+}, async function (request, reply) {…}
+```
+
+</CodeSurferLayout>
+
+---
+
+<Image
+  src="images/amsterdam.jpg"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+  <BigTitle>Project Setup</BigTitle>
+</Image>
+
+---
+
+<BaseSlide>
+  <h1>create-fastify-app</h1>
+  <p>
+    Create Fastify App is an utility that help you to generate your Fastify project.
+    <ul>
+    <li>Generate a Fastify Project, also from a given swagger file.</li>
+    <li>Generate a service skeleton in existing Fastify Project.</li>
+    <li>Add many plugins such as fastify-cors, fastify-mongodb, fastify-redis, fastify-postgres or point-of-view.</li>
+    </ul>
+  </p>
+</BaseSlide>
