@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  fastify-app:
+    container_name: fastify-app
+    restart: always
+    build: .
+    image: fastify-app:1.0.0
+    ports:
+      - '3000:3000'
+    expose:
+      - '3000'
+    
