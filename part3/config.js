@@ -117,8 +117,12 @@ const theme = {
     textTransform: 'uppercase',
     paddingTop: 0
   },
+  p: {
+    paddingTop: 0,
+    marginTop: 0
+  },
   h1: {
-    fontSize: '3rem',
+    fontSize: '5rem',
     borderBottom: '4px solid #669F64',
     marginTop: 0
   },

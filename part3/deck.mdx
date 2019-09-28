@@ -949,10 +949,509 @@ test('200 response', async t => {
 
 ---
 
+<BaseSlide>
+
+<h1>Exercise 3</h1>
+<p>
+  Install mongoDB plugin and configure it.
+</p>
+<p>
+  <ul>
+    <li>We will use fastify-app add:mongo</li>
+    <li>We use the docker image mongo:latest</li>
+  </ul>
+</p>
+
+</BaseSlide>
+
+---
+
 <CodeSurferLayout>
 
-```js title="Add a MongoDB database"
-$ fastify-app add:mongo 
+```js title="Exercise 3" subtitle="Create a new project with create-fastify-app and call him ticketsApp."
+$ npx create-fastify-app generate:project -d ./ticketsApp
+```
+
+```js subtitle="Add mongo DB plugin to project"
+$ npx create-fastify-app generate:project -d ./ticketsApp
+$ cd ./testApp
+$ fastify-app add:mongo
+```
+
+```js subtitle="Give your answers"
+$ npx create-fastify-app generate:project -d ./ticketsApp
+$ cd ./testApp
+$ fastify-app add:mongo
+? Host:  localhost
+? Port:  27018
+? Collection: ticketsApp
+? User:
+? Password:
+```
+
+```js subtitle="Update the package.json"
+"scripts": {
+  "mongo": "docker run -p 27018:27017 mongo:latest",
+  ...
+}
+```
+
+```js subtitle="Your plugin is set in src/plugins/mongo.db.js"
+'use strict'
+
+const fp = require('fastify-plugin')
+const MongoDB = require('fastify-mongodb')
+
+module.exports = fp(async (fastify, opts) => {
+  let mongoOpts = Object.assign({}, {
+    useNewUrlParser: true,
+    url: process.env.MONGODB_URL || 'mongodb://localhost:27018/',
+  }, opts.mongodb)
+
+  fastify.register(MongoDB, mongoOpts)
+})
+```
+
+```js subtitle="Don't forget to type..."
+$ npm install
+```
+
+```js subtitle="Don't forget to type..."
+$ npm install
+$ npm install --save-dev mongo-clean
+$ npm run mongo
+```
+
+```js subtitle="Don't forget to type..."
+$ npm install
+$ npm run mongo
+$ npm run dev
 ```
 
 </CodeSurferLayout>
+
+---
+
+<BaseSlide>
+
+<h1>Our application</h1>
+<p>
+  We create a ticket management application
+</p>
+<p>
+  <ul>
+    <li>Each ticket has a title, a creation date and body</li>
+    <li>We will use the MongoDB _id</li>
+    <li>We don't care about users and authentication for now</li>
+  </ul>
+</p>
+
+</BaseSlide>
+
+---
+
+<BaseSlide>
+
+<h1>Exercise 4</h1>
+<p>
+  <ul>
+    <li>Create the tickets service.</li>
+    <li><strong>POST /tickets</strong>: to add a ticket in tickets colletion</li>
+    <li><strong>GET /tickets</strong>: to get all ticket list</li>
+    <li><strong>GET /tickets/:id</strong>: to get the single ticket</li>
+    <li><strong>Write the test with tap and fastify.inject()</strong></li>
+  </ul>
+</p>
+
+</BaseSlide>
+
+---
+
+<BigFont>
+  <h1>CREATE TICKETS SERVICE</h1>
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="file: src/services/tickets.js"
+'use strict'
+
+module.exports = async function (fastify, opts) {
+  const tickets = fastify.mongo.db.collection('tickets')
+  const { ObjectId } = fastify.mongo
+}
+```
+
+```js subtitle="file: src/services/tickets.js"
+'use strict'
+
+module.exports = async function (fastify, opts) {
+  const tickets = fastify.mongo.db.collection('tickets')
+  const { ObjectId } = fastify.mongo
+}
+
+module.exports.autoPrefix = '/tickets'
+```
+
+```js subtitle="file: src/services/tickets.js"
+'use strict'
+
+module.exports = async function (fastify, opts) {
+  const tickets = fastify.mongo.db.collection('tickets')
+  const { ObjectId } = fastify.mongo
+
+  fastify.post('/', async function (req, reply) {
+    const ticket = Object.assign({}, {
+      ...req.body,
+      creationDate: new Date()
+    })
+
+    const data = await tickets.insertOne(ticket)
+    const _id = data.insertedId
+
+    return Object.assign(ticket, {
+      _id
+    })
+  })
+}
+
+module.exports.autoPrefix = '/tickets'
+```
+
+```js subtitle="file: src/services/tickets.js"
+'use strict'
+
+module.exports = async function (fastify, opts) {
+  const tickets = fastify.mongo.db.collection('tickets')
+  const { ObjectId } = fastify.mongo
+
+  fastify.post('/', async function (req, reply) {
+    const ticket = Object.assign({}, {
+      ...req.body,
+      creationDate: new Date()
+    })
+
+    const data = await tickets.insertOne(ticket)
+    const _id = data.insertedId
+
+    return Object.assign(ticket, {
+      _id
+    })
+  })
+
+  fastify.get('/', async function (req, res) {
+    const ticketsList = await tickets
+      .find()
+      .sort({
+        _id: -1
+      }).toArray()
+
+    return ticketsList
+  })
+}
+
+module.exports.autoPrefix = '/tickets'
+```
+
+```js subtitle="file: src/services/tickets.js"
+'use strict'
+
+module.exports = async function (fastify, opts) {
+  const tickets = fastify.mongo.db.collection('tickets')
+  const { ObjectId } = fastify.mongo
+
+  fastify.post('/', async function (req, reply) {
+    const ticket = Object.assign({}, {
+      ...req.body,
+      creationDate: new Date()
+    })
+
+    const data = await tickets.insertOne(ticket)
+    const _id = data.insertedId
+
+    return Object.assign(ticket, {
+      _id
+    })
+  })
+
+  fastify.get('/', async function (req, res) {
+    const ticketsList = await tickets
+      .find()
+      .sort({
+        _id: -1
+      }).toArray()
+
+    return ticketsList
+  })
+
+  fastify.get('/:id', async function (req, reply) {
+    const id = req.params.id
+    const data = await tickets.findOne({
+      _id: new ObjectId(id)
+    })
+
+    if (!data) {
+      reply
+        .code(404)
+        return { status: 'not ok' }
+    }
+
+    return data
+  })
+}
+
+module.exports.autoPrefix = '/tickets'
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+  <h1>WRITE THE TESTS</h1>
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```js
+'use strict'
+
+const { test } = require('tap')
+const {
+  build,
+} = require('../helper') // take a look at this file
+```
+
+```js
+'use strict'
+
+const { test } = require('tap')
+const {
+  build,
+} = require('../helper') // take a look at this file
+
+test('create and get ticket', async (t) => {
+  ...
+})
+
+test('create and get all', async (t) => {
+  ...
+})
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+
+<h1>Exercise 5</h1>
+<p>
+  <ul>
+    <li>Protect the routes with Json Schema (you can use fluent-schema)</li>
+    <li>Update the tests</li>
+  </ul>
+</p>
+
+</BaseSlide>
+
+---
+
+<CodeSurferLayout>
+
+```js subtitle="Protect the POST /tickets"
+
+const S = require('fluent-schema')
+
+module.exports = async function (fastify, opts) {
+  ...
+
+  fastify.post('/', {
+    schema: {
+      body: S.object()
+        .prop('title', S.string()
+          .minLength(1)
+          .maxLength(255)
+          .required()
+        )
+        .prop('body', S.string()
+          .required()),
+      response: {
+        '2xx': S.object()
+          .prop('_id', S.string())
+          .prop('title', S.string())
+          .prop('body', S.string())
+          .prop('creationDate', S.string())
+      }
+    }
+  }, async function (req, reply) { ... })
+}
+```
+
+```js subtitle="Protect the GET /tickets"
+
+const S = require('fluent-schema')
+
+module.exports = async function (fastify, opts) {
+  ...
+
+  fastify.post('/', {
+    schema: {
+      body: S.object()
+        .prop('title', S.string()
+          .minLength(1)
+          .maxLength(255)
+          .required()
+        )
+        .prop('body', S.string()
+          .required()),
+      response: {
+        '2xx': S.object()
+          .prop('_id', S.string())
+          .prop('title', S.string())
+          .prop('body', S.string())
+          .prop('creationDate', S.string())
+      }
+    }
+  }, async function (req, reply) { ... })
+
+  fastify.get('/', {
+    schema: {
+      response: {
+        '2xx': S.array()
+          .items(S.object()
+            .prop('_id', S.string())
+            .prop('title', S.string())
+            .prop('body', S.string())
+            .prop('creationDate', S.string())
+          )
+      }
+    }
+  }, async function (req, res) { ... })
+}
+```
+
+```js subtitle="Protect the GET /tickets/:id"
+
+const S = require('fluent-schema')
+
+module.exports = async function (fastify, opts) {
+  ...
+
+  fastify.post('/', {
+    schema: {
+      body: S.object()
+        .prop('title', S.string()
+          .minLength(1)
+          .maxLength(255)
+          .required()
+        )
+        .prop('body', S.string()
+          .required()),
+      response: {
+        '2xx': S.object()
+          .prop('_id', S.string())
+          .prop('title', S.string())
+          .prop('body', S.string())
+          .prop('creationDate', S.string())
+      }
+    }
+  }, async function (req, reply) { ... })
+
+  fastify.get('/', {
+    schema: {
+      response: {
+        '2xx': S.array()
+          .items(S.object()
+            .prop('_id', S.string())
+            .prop('title', S.string())
+            .prop('body', S.string())
+            .prop('creationDate', S.string())
+          )
+      }
+    }
+  }, async function (req, res) { ... })
+
+  fastify.get('/:id', {
+    schema: {
+      response: {
+        '2xx': S.object()
+          .prop('_id', S.string())
+          .prop('title', S.string())
+          .prop('body', S.string())
+          .prop('creationDate', S.string()),
+        '404': S.object()
+          .prop('status', S.string())
+      }
+    }
+  }, async function (req, reply) { ... })
+}
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+  <h1>UPDATE YOUR TESTS</h1>
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```js
+
+test('do not create a ticket without a title', async (t) => {
+  const app = build(t)
+  const res1 = await app.inject({
+    method: 'POST',
+    url: '/tickets',
+    body: {
+      body: 'this is a long body'
+    }
+  })
+
+  t.equal(res1.statusCode, 400)
+  t.equal(JSON.parse(res1.body).message, 'body should have required property \'title\'')
+})
+
+test('do not create a ticket without a body', async (t) => {
+  const app = build(t)
+  const res1 = await app.inject({
+    method: 'POST',
+    url: '/tickets',
+    body: {
+      title: 'A support ticket'
+    }
+  })
+
+  t.equal(res1.statusCode, 400)
+  t.equal(JSON.parse(res1.body).message, 'body should have required property \'body\'')
+})
+
+```
+
+</CodeSurferLayout>
+
+---
+
+<BaseSlide>
+
+<h1>Exercise 6</h1>
+<p>
+  <ul>
+    <li>Add the authentication service (JWT)</li>
+    <li>Create a users CRUD</li>
+    <li>Add the ticket creator for each ticket</li>
+  </ul>
+</p>
+
+</BaseSlide>
+
+---
+

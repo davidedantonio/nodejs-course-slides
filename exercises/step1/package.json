@@ -4,6 +4,7 @@
   "description": "A beautiful fastify app",
   "main": "server.js",
   "scripts": {
+    "mongo": "docker run -p 27018:27017 mongo:latest",
     "test": "tap test/**/*.test.js",
     "start": "fastify-app run",
     "dev": "fastify-app run -l info -P -w"
@@ -12,7 +13,7 @@
     "fastify",
     "nodejs"
   ],
-  "author": " <>",
+  "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.0.0",
@@ -28,6 +29,7 @@
     "fastify-mongodb": "^1.0.1"
   },
   "devDependencies": {
+    "mongo-clean": "^2.0.0",
     "pre-commit": "^1.2.2",
     "standard": "^14.0.0",
     "tap": "^14.0.0"
