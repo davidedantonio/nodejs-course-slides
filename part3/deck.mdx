@@ -1701,28 +1701,152 @@ fastify.get('/:id', {
 ---
 
 <BigFont>
-  <h2>What we have created?</h2>
+  <h2>Monitoring?</h2>
+  <code>npm install --save elastic-apm-node</code>
 </BigFont>
 
 ---
 
-<Image
-  src="images/monolith.jpg"
-  style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
-    flexDirection: 'column',
-    fontSize: '4rem',
-    fontWeight: 900
-  }}
->
+<CodeSurferLayout>
 
-</Image>
+```yml title="docker-compose.yml"
+version: '3.7'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.0
+    container_name: elasticsearch-workshop
+    environment:
+      - cluster.name=docker-cluster
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health | grep -v '\"status\":\"red\"'"]
+```
+
+```yml title="docker-compose.yml"
+version: '3.7'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.0
+    container_name: elasticsearch-workshop
+    environment:
+      - cluster.name=docker-cluster
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health | grep -v '\"status\":\"red\"'"]
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.1.0
+    container_name: kibana-workshop
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://kibana:5601/"]
+    depends_on:
+      - elasticsearch
+```
+
+```yml title="docker-compose.yml"
+version: '3.7'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.0
+    container_name: elasticsearch-workshop
+    environment:
+      - cluster.name=docker-cluster
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health | grep -v '\"status\":\"red\"'"]
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.1.0
+    container_name: kibana-workshop
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://kibana:5601/"]
+    depends_on:
+      - elasticsearch
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.1.0
+    container_name: apm-workshop
+    ports:
+      - "8200:8200"
+    environment:
+      - output.elasticsearch.hosts=['http://elasticsearch:9200']
+      - apm-server.host="0.0.0.0:8200"
+      - setup.kibana.host="kibana:5601"
+    command: apm-server -e -d "*" -E apm-server.host="0.0.0.0:8200" -E apm-server.expvar.enabled=true
+    depends_on:
+      - elasticsearch
+      - kibana
+    healthcheck:
+      test: ["CMD", "curl", "-f" ,"http://apm-server:8200/"]
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js title="update package.json"
+"scripts": {
+  ...
+  "apm": "NODE_OPTIONS=\"-r elastic-apm-node/start\" fastify-app run -l info -P",
+  ...
+},
+```
+
+```bash
+$ npm run apm
+```
+
+</CodeSurferLayout>
+
+---
+
+<img src="images/elastic-apm.png" />
 
 ---
 
 <BaseSlide>
   <img src="./images/service1.png" />
 </BaseSlide>
+
+---
+
+<BigFont>
+  <h2>From monolith to microservices</h2>
+</BigFont>

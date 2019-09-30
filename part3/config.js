@@ -31,7 +31,7 @@ const BigFont = styled.div({
   flexDirection: 'column',
   height: '100vh',
   '> h1': {
-    fontSize: '17rem',
+    fontSize: '14rem',
     borderBottom: 'none',
     display: 'block',
     marginBottom: 0,
@@ -51,7 +51,7 @@ const BigFont = styled.div({
     color: '#000'
   },
   '> pre': {
-    fontSize: '7rem',
+    fontSize: '4rem',
     color: '#000'
   },
   '> .colored': {
