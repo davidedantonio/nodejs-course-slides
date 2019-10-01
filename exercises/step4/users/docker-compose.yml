@@ -1,0 +1,95 @@
+version: '3.7'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.0
+    container_name: elasticsearch-workshop
+    environment:
+      - cluster.name=docker-cluster
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health | grep -v '\"status\":\"red\"'"]
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.1.0
+    container_name: kibana-workshop
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://kibana:5601/"]
+    depends_on:
+      - elasticsearch
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.1.0
+    container_name: apm-workshop
+    ports:
+      - "8200:8200"
+    environment:
+      - output.elasticsearch.hosts=['http://elasticsearch:9200']
+      - apm-server.host="0.0.0.0:8200"
+      - setup.kibana.host="kibana:5601"
+    command: apm-server -e -d "*" -E apm-server.host="0.0.0.0:8200" -E apm-server.expvar.enabled=true
+    depends_on:
+      - elasticsearch
+      - kibana
+    healthcheck:
+      test: ["CMD", "curl", "-f" ,"http://apm-server:8200/"]
+  auth-service:
+    container_name: auth
+    restart: always
+    build: ./auth
+    image: 'auth-service:1.0.0'
+    ports:
+      - '3001:3000'
+    expose:
+      - '3001'
+    links:
+      - mongodb-users
+  tickets-service:
+    container_name: auth
+    restart: always
+    build: ./auth
+    image: 'tickets-service:1.0.0'
+    ports:
+      - '3002:3000'
+    expose:
+      - '3002'
+    links:
+      - mongodb-tickets
+  user-service:
+    container_name: auth
+    restart: always
+    build: ./users
+    image: 'user-service:1.0.0'
+    ports:
+      - '3002:3000'
+    expose:
+      - '3002'
+    links:
+      - mongodb-users
+  mongodb-users:
+    image: 'mongo:latest'
+    container_name: users-mongodb
+    ports:
+      - '27018:27017'
+    expose:
+      - '27018'
+  mongodb-tickets:
+    image: 'mongo:latest'
+    container_name: tickets-mongodb
+    ports:
+      - '27018:27017'
+    expose:
+      - '27018'
+
