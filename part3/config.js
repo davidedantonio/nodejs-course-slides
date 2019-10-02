@@ -44,6 +44,18 @@ const BigFont = styled.div({
     marginBottom: 0,
     lineHeight: '10rem'
   },
+  '> .normal': {
+    padding: '7rem',
+    fontSize: '10rem',
+    fontWeight: 800,
+    borderBottom: 'none',
+    display: 'block',
+    marginBottom: 0,
+    lineHeight: '12rem',
+    '.colored': {
+      color: '#669F64'
+    }
+  },
   '> .subtitle': {
     fontSize: '17rem',
     borderBottom: 'none',
@@ -114,7 +126,6 @@ const theme = {
     fontFamily: '"Oswald", sans-serif',
     fontWeight: 900,
     color: '#669F64',
-    textTransform: 'uppercase',
     paddingTop: 0
   },
   p: {

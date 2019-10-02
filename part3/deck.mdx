@@ -150,7 +150,7 @@ Software Architect @elastic
 ---
 
 <BigFont>
-  <h1>Why Fastify?</h1>
+  <div className="normal">Why <span className="colored">Fastify</span>?</div>
 </BigFont>
 
 ---
@@ -227,8 +227,9 @@ const server = http.createServer((req, res) => {
 ---
 
 <BigFont>
-  <span className="subtitle">Extendible via </span>
-  <span className="colored">plugins</span>
+
+<div className="normal">Extendible via <span className="colored">plugins</span>.</div>
+
 </BigFont>
 
 ---
@@ -410,7 +411,7 @@ fastify.log.fatal('Fatal level log')
 ---
 
 <BigFont>
-  <h1>Hooks</h1>
+  <div className="normal">Hooks<span className="colored">.</span></div>
 </BigFont>
 
 ---
@@ -575,7 +576,7 @@ fastify.route({
 ---
 
 <BigFont>
-  <h1>Decorators</h1>
+  <div className="normal">Decorators<span className="colored">.</span></div>
 </BigFont>
 
 ---
@@ -1068,7 +1069,7 @@ $ npm run dev
 ---
 
 <BigFont>
-  <h1>CREATE TICKETS SERVICE</h1>
+  <div className="normal">Create <span className="colored">tickets</span> service.</div>
 </BigFont>
 
 ---
@@ -1210,7 +1211,7 @@ module.exports.autoPrefix = '/tickets'
 ---
 
 <BigFont>
-  <h1>WRITE THE TESTS</h1>
+  <div className="normal">Write the <span className="colored">tests</span>.</div>
 </BigFont>
 
 ---
@@ -1397,7 +1398,7 @@ module.exports = async function (fastify, opts) {
 ---
 
 <BigFont>
-  <h1>UPDATE YOUR TESTS</h1>
+  <div className="normal">Update your <span className="colored">tests</span>.</div>
 </BigFont>
 
 ---
@@ -1456,7 +1457,7 @@ test('do not create a ticket without a body', async (t) => {
 ---
 
 <BigFont>
-  <h1>Auth Service</h1>
+  <div className="normal">Authentication <span className="colored">service</span>.</div>
 </BigFont>
 
 ---
@@ -1541,8 +1542,10 @@ fastify.post('/signin', {
 
 ---
 
+---
+
 <BigFont>
-  <h1>User Service</h1>
+  <div className="normal">Users <span className="colored">service</span>.</div>
 </BigFont>
 
 ---
@@ -1622,7 +1625,7 @@ fastify.addHook('preHandler', async (request, reply) => {
 ---
 
 <BigFont>
-  <h1>Update tickets service</h1>
+  <div className="normal">Update <span className="colored">tickets</span> service.</div>
 </BigFont>
 
 ---
@@ -1701,7 +1704,7 @@ fastify.get('/:id', {
 ---
 
 <BigFont>
-  <h2>Monitoring?</h2>
+  <div className="normal">Monitoring <span className="colored">?</span></div>
   <code>npm install --save elastic-apm-node</code>
 </BigFont>
 
@@ -1848,7 +1851,7 @@ $ npm run apm
 ---
 
 <BigFont>
-  <h2>From monolith to microservices</h2>
+  <div className="normal">From monolith to <span className="colored">microservices</span>.</div>
 </BigFont>
 
 ---
@@ -1882,7 +1885,72 @@ $ npm run apm
 ---
 
 <BigFont>
+  <div className="normal">Wrong<span className="colored">!</span></div>
+</BigFont>
 
-<h1>WRONG!</h1>
+---
+
+<BigFont>
+
+<div className="normal">The infrastructure should be <span className="colored">transparent</span> to the clients.</div>
 
 </BigFont>
+
+---
+
+<BigFont>
+
+<div className="normal">Gateway<span className="colored">.</span></div>
+
+</BigFont>
+
+---
+
+<CodeSurferLayout>
+
+```bash
+$ npm install fastify-http-proxy
+```
+
+</CodeSurferLayout>
+
+---
+
+<CodeSurferLayout>
+
+```js
+module.exports = async function (fastify, opts) {
+  fastify.register(require('fastify-http-proxy'), {
+    upstream: `http://localhost:3002`
+  })
+}
+
+module.exports.autoPrefix = '/api/tickets'
+```
+
+</CodeSurferLayout>
+
+---
+
+<BigFont>
+
+<div className="normal">DEMO<span className="colored">.</span><br />Step <span className="colored">5</span></div>
+
+</BigFont>
+
+---
+
+<Image
+  src="images/fastify.png"
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    flexDirection: 'column',
+    fontSize: '4rem',
+    fontWeight: 900
+  }}
+>
+<div style={{marginTop: 400}}>Thanks!</div>
+</Image>
