@@ -54,7 +54,6 @@ const theme = {
   font: '"Oswald", sans-serif',
   monospace: 'Menlo, monospace',
   css: {
-    textAlign: 'left',
     fontSize: '1.5em',
     '@media screen and (min-width:56em)': {
       fontSize: '2em',
@@ -76,19 +75,22 @@ const theme = {
   heading: {
     fontFamily: '"Oswald", sans-serif',
     fontWeight: 900,
-    margin: '0',
     color: '#669F64',
-    textTransform: 'uppercase'
+    paddingTop: 0
+  },
+  p: {
+    paddingTop: 0,
+    marginTop: 0
   },
   h1: {
-    fontSize: '3rem',
-    borderBottom: '4px solid #669F64'
+    fontSize: '5rem',
+    borderBottom: '4px solid #669F64',
+    marginTop: 0
   },
-  h2: { fontSize: '3.5rem' },
+  h2: { fontSize: '2.8rem' },
   h3: {
     fontSize: '2rem',
-    fontWeight: 600,
-    //color: '#546e7a'
+    fontWeight: 600
   },
   h4: { fontSize: '1.3em' },
   h5: { fontSize: '1.2em' },
@@ -113,7 +115,6 @@ const theme = {
     '& > div': {
       width: '100vw',
       height: '100vh',
-      margin: 'auto 5vw'
     }
   }
 }

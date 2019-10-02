@@ -1006,7 +1006,7 @@ const MongoDB = require('fastify-mongodb')
 module.exports = fp(async (fastify, opts) => {
   let mongoOpts = Object.assign({}, {
     useNewUrlParser: true,
-    url: process.env.MONGODB_URL || 'mongodb://localhost:27018/',
+    url: process.env.MONGODB_URL || 'mongodb://localhost:27018/myDB',
   }, opts.mongodb)
 
   fastify.register(MongoDB, mongoOpts)
@@ -1542,8 +1542,6 @@ fastify.post('/signin', {
 
 ---
 
----
-
 <BigFont>
   <div className="normal">Users <span className="colored">service</span>.</div>
 </BigFont>
@@ -1872,6 +1870,12 @@ $ npm run apm
 ---
 
 <BaseSlide>
+  <img src="./images/service2.png" />
+</BaseSlide>
+
+---
+
+<BaseSlide>
 
 <h1>AWESOME!</h1>
 <p>
@@ -1937,6 +1941,12 @@ module.exports.autoPrefix = '/api/tickets'
 <div className="normal">DEMO<span className="colored">.</span><br />Step <span className="colored">5</span></div>
 
 </BigFont>
+
+---
+
+<BaseSlide>
+  <img src="./images/service3.png" />
+</BaseSlide>
 
 ---
 
