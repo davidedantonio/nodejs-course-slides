@@ -34,5 +34,3 @@ module.exports = async function (fastify, opts) {
     return usersList
   })
 }
-
-module.exports.autoPrefix = '/api/users'

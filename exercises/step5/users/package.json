@@ -8,7 +8,7 @@
     "test": "tap test/**/*.test.js",
     "apm": "NODE_OPTIONS=\"-r elastic-apm-node/start\" fastify-app run -l info -P",
     "start": "fastify-app run",
-    "dev": "NODE_OPTIONS='--require \"./apm.js\"' fastify-app run -l info -P"
+    "dev": "NODE_OPTIONS=\"-r ./apm.js\" fastify-app run -l info"
   },
   "keywords": [
     "fastify",

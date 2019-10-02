@@ -99,5 +99,3 @@ module.exports = async function (fastify, opts) {
     return data
   })
 }
-
-module.exports.autoPrefix = '/api/tickets'

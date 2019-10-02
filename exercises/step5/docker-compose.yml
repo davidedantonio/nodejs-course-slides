@@ -46,41 +46,55 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f" ,"http://apm-server:8200/"]
 
+  gateway-service:
+    container_name: gateway-service
+    restart: always
+    build: ./gateway
+    image: 'gateway-service:1.0.0'
+    environment:
+      - FASTIFY_PORT=3000
+    ports:
+      - '3000:3000'
+    expose:
+      - '3000'
+    links:
+      - auth-service
+      - tickets-service
+      - users-service
+      - apm-server
+  
   auth-service:
     container_name: auth-service
     restart: always
     build: ./auth
     image: 'auth-service:1.0.0'
-    ports:
-      - '3001:3000'
-    expose:
-      - '3001'
+    environment:
+      - FASTIFY_PORT=3001
     links:
       - mongodb
+      - apm-server
   
   tickets-service:
     container_name: tickets-service
     restart: always
     build: ./tickets
     image: 'tickets-service:1.0.0'
-    ports:
-      - '3002:3000'
-    expose:
-      - '3002'
+    environment:
+      - FASTIFY_PORT=3002
     links:
       - mongodb
+      - apm-server
 
   users-service:
     container_name: users-service
     restart: always
     build: ./users
     image: 'users-service:1.0.0'
-    ports:
-      - '3003:3000'
-    expose:
-      - '3003'
+    environment:
+      - FASTIFY_PORT=3003
     links:
       - mongodb
+      - apm-server
 
   mongodb:
     image: 'mongo:latest'
