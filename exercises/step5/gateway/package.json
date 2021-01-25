@@ -30,7 +30,7 @@
     "pump": "^3.0.0",
     "resolve-from": "^5.0.0",
     "secure-password": "^3.1.0",
-    "yargs-parser": "^13.0.0"
+    "yargs-parser": "^13.1.2"
   },
   "devDependencies": {
     "mongo-clean": "^2.0.0",
